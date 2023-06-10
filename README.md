@@ -1,1 +1,11 @@
 # ProyectoFase1
+
+NOMBRE Matthew Emmanuel Reyes Melgar
+
+CARNE: 202202233
+
+LABORATORIO INTRODUCCION A LA PROGRAMACION Y COMPUTACION 2 Sección P
+
+DIAGRAMA DE CLASES
+
+![ERD de Fase 1](https://github.com/MReyes09/IPC2_V1S12023_ProyectoF1_202202233/assets/69548347/e1ec36df-ddc1-4627-8fec-3552491327cb)
