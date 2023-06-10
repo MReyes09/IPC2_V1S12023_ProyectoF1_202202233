@@ -92,7 +92,6 @@ class ListaUser:
             if usuario.get_correo() == userLoged.get_correo():
 
                 actual.dato = userLoged
-                print("Tu película favorita se guardo con éxito\n")
                 return userLoged
 
             actual = actual.siguiente

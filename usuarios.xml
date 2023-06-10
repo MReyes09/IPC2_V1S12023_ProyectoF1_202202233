@@ -15,4 +15,4 @@
       <correo>jane.smith@example.com</correo>
       <contrasena>password456</contrasena>
    </usuario>
-<usuario><rol>cliente</rol><nombre>Matthew</nombre><apellido>Reyes</apellido><telefono>5614100</telefono><correo>mati@gmail.com</correo><contrasena>123</contrasena></usuario></usuarios>
+</usuarios>

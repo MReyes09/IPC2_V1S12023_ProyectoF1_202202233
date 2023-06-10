@@ -36,3 +36,11 @@ class CineController:
             print(f"Cine: {cine.get_nombre()}")
             lista_Salas: ListaSala = cine.get_salas()
             lista_Salas.listar_Salas()
+
+    def buscar_Sala_In_Cine(self, numero_Sala:str, numero_Asientos:int, listaCines:[]):
+
+        for cine in listaCines:
+
+            lista_Salas: ListaSala = cine.get_salas()
+            validar_Sala = lista_Salas.buscar_Sala(numero_Sala, numero_Asientos)
+            return  validar_Sala

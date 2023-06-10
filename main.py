@@ -1,5 +1,5 @@
 from controller.CineController import CineController
-from estructura_Lista.ListaSala import ListaSala
+from controller.HistorialController import HistorialController
 from estructura_Lista.ListaUser import ListaUser
 from model.Usuario import Usuario
 from estructura_Lista.ListaCategory import ListaCategory
@@ -14,6 +14,7 @@ listaCategoria.CargarXML_Category()
 listaCines:[] = []
 cineController = CineController()
 listaCines = cineController.CargarXML_Cine(listaCines)
+historialController = HistorialController()
 
 userLoged: Usuario = None
 
@@ -83,6 +84,7 @@ while salir_App is not True:
                                     copiaUserLoged: Usuario = userLoged
                                     copiaUserLoged.set_peliFav(lista_Pelis)
                                     userLoged = lista.actualizar_Usuario(copiaUserLoged)
+                                    print("\n TU PELICULA FAVORITA SE GUARDO CON EXITO!!\n")
 
                                 elif opcion == 3:
 
@@ -96,7 +98,50 @@ while salir_App is not True:
                                                                "Tu respuesta: "))
                                     print("Estas son las salas disponibles, ingresa el numero de sala: \n")
                                     cineController.Listar_Cines_Salas(listaCines)
-                                    numero_Sala: str = input("Tu respuesta: ")
+                                    validar_Sala: bool = False
+                                    no_Asientos: int = 0
+
+                                    while validar_Sala is not True:
+
+                                        numero_Sala: str = input("Tu respuesta: ")
+                                        no_Asientos = int(input("¿Cuántos asientos quieres?\n"
+                                                                     "Tu resupuesta: "))
+                                        validar_Sala = cineController.buscar_Sala_In_Cine(numero_Sala, no_Asientos, listaCines)
+
+                                    monto_Total:int = no_Boletos * 42
+                                    print(f"\n Monto total: Q{monto_Total}")
+                                    datos_Facturacion: int = int(input("Desea ingresar datos de facturación\n"
+                                                                       "1. Si   2. CF\n tu respuesta: "))
+                                    if datos_Facturacion == 1:
+
+                                        nombre:str = input("nombre: ")
+                                        NIT:str = input("NIT: ")
+                                        direccion:str = input("dirección: ")
+                                        print(f"\n nombre: {nombre}\n NIT: {NIT}\n direccion: {direccion}")
+
+                                        nombre_Pel:str = findedPelicula.get_titulo()
+                                        fechaPel:str = findedPelicula.get_fecha()
+                                        horaPel:str = findedPelicula.get_hora()
+                                        act_Historial: [] = userLoged.get_historial()
+                                        act_Historial = historialController.add_Historial(act_Historial, nombre_Pel, fechaPel, horaPel, no_Boletos, no_Asientos, monto_Total)
+                                        copiaUserLoged = userLoged
+                                        copiaUserLoged.set_historial(act_Historial)
+                                        lista.actualizar_Usuario(copiaUserLoged)
+                                        print("\n Tu compra de boletos fue un exito!!!")
+
+                                    if datos_Facturacion == 2:
+
+                                        nombre_Pel: str = findedPelicula.get_titulo()
+                                        fechaPel: str = findedPelicula.get_fecha()
+                                        horaPel: str = findedPelicula.get_hora()
+                                        act_Historial: [] = userLoged.get_historial()
+                                        act_Historial = historialController.add_Historial(act_Historial, nombre_Pel,
+                                                                                          fechaPel, horaPel, no_Boletos,
+                                                                                          no_Asientos, monto_Total)
+                                        copiaUserLoged = userLoged
+                                        copiaUserLoged.set_historial(act_Historial)
+                                        lista.actualizar_Usuario(copiaUserLoged)
+                                        print("\n Tu compra de boletos fue un exito!!!")
 
                             elif opcion_Menu_Usuario == 2:
 
@@ -161,3 +206,4 @@ while salir_App is not True:
 
             print("La opción brindada no es un número, intenta de nuevo\n")
     # --------  FIN MENÚ PRINCIPAL ----------->
+
