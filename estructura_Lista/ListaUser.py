@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import xml.dom.minidom as minidom
 
 from model.Usuario import Usuario
 from node.NodoUser import NodoUser
@@ -13,7 +14,7 @@ class ListaUser:
         actual: NodoUser = self.cabeza
         while actual is not None:
             usuario: Usuario = actual.dato
-            print(f"Rol: {usuario.get_rol()} nombre: {usuario.get_nombre()} telefono: {usuario.get_telefono()} correo: {usuario.get_correo()}")
+            print(f"Rol: {usuario.get_rol()} nombre: {usuario.get_nombre()} telefono: {usuario.get_telefono()} correo: {usuario.get_correo()} contraseña: {usuario.get_contrasena()}")
             actual = actual.siguiente
 
     def CargarXML(self, operacion: int):
@@ -21,7 +22,7 @@ class ListaUser:
         tree = ET.parse('usuarios.xml')
         root = tree.getroot()
 
-        for indice, usuarios in enumerate(root.findall('usuario')):
+        for usuarios in root.findall('usuario'):
             rol: str = usuarios.find('rol').text
             nombre: str = usuarios.find('nombre').text
             apellido: str = usuarios.find('apellido').text
@@ -59,6 +60,7 @@ class ListaUser:
 
     def Registrarse(self, rol:str, nombre:str, apellido:str, telefono:int, correo:str, contrasena:str):
 
+         """
          #Guardar el usuario en el XML
          usuario_Nuevo = ET.Element("usuario")
 
@@ -73,6 +75,7 @@ class ListaUser:
          root = tree.getroot()
          root.append(usuario_Nuevo)
          tree.write("usuarios.xml")
+         """
 
          #Guardar el usuario en la lista simple enlazada
          usuario_Nuevo_En_Lista:Usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasena)
@@ -97,3 +100,67 @@ class ListaUser:
             actual = actual.siguiente
 
         print("No se encontro coincidencias")
+
+    def eliminar_Usuario(self, correo: str):
+
+        actual:NodoUser = self.cabeza
+        anterior:NodoUser = None
+        encontrado = False
+
+        while actual and not encontrado:
+
+            if actual.dato.get_correo() == correo:
+
+                encontrado = True
+
+            else:
+
+                anterior = actual
+                actual = actual.siguiente
+
+        if actual is None:
+
+            print("El dato no se encuentra en la lista.")
+            return
+
+        if anterior is None:
+            self.cabeza = actual.siguiente
+        else:
+            anterior.siguiente = actual.siguiente
+
+    def actualizar_XML(self):
+
+        root = ET.Element("usuarios")
+        actual: NodoUser = self.cabeza
+
+        while actual is not None:
+
+            usuario: Usuario = actual.dato
+            nuevo_Usuario = ET.SubElement(root, "usuario")
+
+            rol = ET.SubElement(nuevo_Usuario, "rol")
+            rol.text = usuario.get_rol()
+
+            nombre = ET.SubElement(nuevo_Usuario, "nombre")
+            nombre.text = usuario.get_nombre()
+
+            apellido = ET.SubElement(nuevo_Usuario, "apellido")
+            apellido.text = usuario.get_apellido()
+
+            telefono = ET.SubElement(nuevo_Usuario, "telefono")
+            telefono.text = str(usuario.get_telefono())
+
+            correo = ET.SubElement(nuevo_Usuario, "correo")
+            correo.text = usuario.get_correo()
+
+            contrasena = ET.SubElement(nuevo_Usuario, "contrasena")
+            contrasena.text = usuario.get_contrasena()
+
+            actual = actual.siguiente
+
+        arbol_xml = ET.ElementTree(root)
+        xml_str = ET.tostring(root, encoding="utf-8")
+        dom = minidom.parseString(xml_str)
+        with open("usuarios.xml", "w") as archivo:
+            archivo.write(dom.toprettyxml(indent="   "))
+        print("\n Se ha actualiado todos los datos exitosamente en el XML")

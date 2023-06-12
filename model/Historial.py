@@ -17,37 +17,37 @@ class Historial:
         return self.asientos
 
     def get_id_Historial(self) -> int:
-        return self._id_Historial
+        return self.id_Historial
 
     def set_id_Historial(self, id_Historial: int):
-        self._id_Historial = id_Historial
+        self.id_Historial = id_Historial
 
     def get_nombre_Pel(self) -> str:
-        return self._nombre_Pel
+        return self.nombre_Pel
 
     def set_nombre_Pel(self, nombre_Pel: str):
-        self._nombre_Pel = nombre_Pel
+        self.nombre_Pel = nombre_Pel
 
     def get_fecha_P(self) -> str:
-        return self._fecha_P
+        return self.fecha_P
 
     def set_fecha_P(self, fecha_P: str):
-        self._fecha_P = fecha_P
+        self.fecha_P = fecha_P
 
     def get_hora(self) -> str:
-        return self._hora
+        return self.hora
 
     def set_hora(self, hora: str):
-        self._hora = hora
+        self.hora = hora
 
     def get_monto_Tota(self) -> int:
-        return self._monto_Tota
+        return self.monto_Tota
 
     def set_monto_Tota(self, monto_Tota: int):
-        self._monto_Tota = monto_Tota
+        self.monto_Tota = monto_Tota
 
     def get_numero_Boleto(self):
-        return self._numero_Boleto
+        return self.numero_Boleto
 
     def set_numero_Boleto(self, numero_Boleto):
-        self._numero_Boleto = numero_Boleto
+        self.numero_Boleto = numero_Boleto
