@@ -1,6 +1,7 @@
 from controller.CineController import CineController
 from controller.HistorialController import HistorialController
 from estructura_Lista.ListaUser import ListaUser
+from model.Categoria import Categoria
 from model.Usuario import Usuario
 from estructura_Lista.ListaCategory import ListaCategory
 
@@ -24,6 +25,49 @@ print('Bienvenido a USAC-CINEMA')
 # MENU INICIAL DONDE TE PODRAS REGISTAR O INICIAR SESION
 iniciar_Sesion: bool = False
 salir_App: bool = False
+
+
+def menuGestionarPelis():
+
+    opcion: int = None
+
+    while opcion != 5:
+
+        opcion = int(input("¿Qué deseas hacer?\n"
+                           "1. Crear peliculas\n"
+                           "2. Modificar peliculas\n"
+                           "3. Listar peliculas\n"
+                           "4. Eliminar pelicula\n"
+                           "5. Salir\n tu respuesta: "))
+
+        if opcion == 1:
+
+            print("En que categoria quieres agregar la pelicula?\n")
+            listaCategoria.Listar_Categorias(3)
+            nombreCa: str = input("Tu respuesta: ")
+            listaCategoria.update_Categoria(nombreCa, 2)
+            print("")
+
+        elif opcion == 2:
+
+            print("En que categoria quieres actualizar la pelicula?\n")
+            listaCategoria.Listar_Categorias(1)
+            nombreCa: str = input("Tu respuesta: ")
+            listaCategoria.update_Categoria(nombreCa, 3)
+            print("Se actualizo con exito\n")
+
+        elif opcion == 3:
+
+            print("Todas las peliculas existentes son: \n")
+            listaCategoria.Listar_Categorias(2)
+
+        elif opcion == 4:
+
+            print("En que categoria quieres eliminar la pelicula?\n")
+            listaCategoria.Listar_Categorias(1)
+            nombreCa: str = input("Tu respuesta: ")
+            listaCategoria.update_Categoria(nombreCa, 4)
+            print("Se elimino con exito\n")
 
 while salir_App is not True:
 
@@ -197,6 +241,7 @@ while salir_App is not True:
                             print("MENU DE ADMINISTRADORO\n"
                                   "Este es el menú de administrador ¿Qué deseas hacer ahora? \n"
                                   "1. Gestionar Usuarios \n"
+                                  "2. Gestionar Categorias Y Peliculas \n"
                                   "10. cerrar sesión")
 
                             opcion_Menu_Admin = int(input("Tu respuesta: "))
@@ -271,11 +316,73 @@ while salir_App is not True:
                                             lista.actualizar_XML()
 
                                         elif opcion_XLM == 2:
-
-                                            lista.cabeza = None
-                                            lista = ListaUser()
                                             lista.CargarXML(1)
                                             print("Se han actualizado los datos con exito")
+
+                            elif opcion_Menu_Admin == 2:
+
+                                opcion:int = None
+
+                                while opcion != 7:
+
+                                    opcion = int(input("¿Qué deseas hacer?\n"
+                                                       "1. Crear categoria\n"
+                                                       "2. Modificar categoria\n"
+                                                       "3. Listar categoria\n"
+                                                       "4. Eliminar categoria\n"
+                                                       "5. Archivo XML\n"
+                                                       "6. Gestionar peliculas \n"
+                                                       "7. Salir\n tu respuesta: "))
+
+
+                                    if opcion == 1:
+
+                                        print("LLena la información que se te pide")
+                                        nombreCa:str = input("nombre de la categoría: ")
+                                        categoria_Nueva:Categoria = Categoria(nombreCa)
+                                        listaCategoria.add_Categoria(categoria_Nueva)
+                                        print("La categoria se creo con exito\n")
+
+                                    if opcion == 2:
+
+                                        nombreCaFind:str = input("Escribe el nombre de la categoria que quieres modificar\n"
+                                                                 "tu respuesta:")
+                                        listaCategoria.update_Categoria(nombreCaFind, 1)
+                                        print("Se ha modificado con exito todo!")
+
+                                    elif opcion == 3:
+                                        tipo_Lista:int
+                                        tipo_Lista = int(input("Tipo lista:\n"
+                                                                   "1. Categoria y pelicula \n"
+                                                                   "2. Solo peliculas \n"
+                                                                   "3. Solo categorias\n"
+                                                                   "tu respuesta: "))
+                                        listaCategoria.Listar_Categorias(tipo_Lista)
+                                        print("")
+
+                                    elif opcion == 4:
+
+                                        nombreCa:str = input("Escribe el nombre de la categoria que deseas eliminar\n"
+                                                             "tu respuesta:")
+                                        listaCategoria.delete_Categoria(nombreCa)
+
+                                    elif opcion == 5:
+                                        print("asegurate de actualizar antes de extraer")
+                                        print("1. Actualizar XML    2. Extraer data de XML")
+                                        opcion_XLM:int = int(input("Tu respuesta: "))
+
+                                        if opcion_XLM == 1:
+
+                                            listaCategoria.actualiar_XML()
+
+                                        elif opcion_XLM == 2:
+                                            listaCategoria.CargarXML_Category()
+                                            print("Se han actualizado los datos con exito")
+
+                                    elif opcion == 6:
+
+                                        menuGestionarPelis()
+
 
                             elif opcion_Menu_Admin == 10:
 
@@ -317,4 +424,3 @@ while salir_App is not True:
 
             print("La opción brindada no es un número, intenta de nuevo\n")
     # --------  FIN MENÚ PRINCIPAL ----------->
-

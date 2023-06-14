@@ -4,7 +4,7 @@ class Categoria:
 
     def __init__(self, nombreCa: str, peliculas=None):
         self.nombreCa = nombreCa
-        self.peliculas = peliculas if peliculas is not None else ListaPelicula
+        self.peliculas = peliculas if peliculas is not None else None
 
     def set_NombreCa(self, nombreCa: str):
         self.nombreCa = nombreCa
