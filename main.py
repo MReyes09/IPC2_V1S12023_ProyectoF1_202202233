@@ -26,6 +26,39 @@ print('Bienvenido a USAC-CINEMA')
 iniciar_Sesion: bool = False
 salir_App: bool = False
 
+def menuGesteionarSalas():
+
+    opcion: int = None
+    global listaCines
+
+    while opcion != 5:
+        opcion = int(input("¿Qué deseas hacer?\n"
+                           "1. Agregar Sala\n"
+                           "2. Modificar Sala\n"
+                           "3. Listar Sala\n"
+                           "4. Eliminar Sala\n"
+                           "5. Salir\n tu respuesta: "))
+        if opcion == 1:
+            nombre_Cine: str = input("Nombre del cine al que le agregaras una sala\n"
+                                     "nombre: ")
+            listaCines = cineController.modificar_Cine(listaCines, nombre_Cine, 2)
+
+        elif opcion == 2:
+
+            nombre_Cine: str = input("Nombre del cine al que le actualizaras una sala\n"
+                                     "nombre: ")
+            listaCines = cineController.modificar_Cine(listaCines, nombre_Cine, 3)
+
+        elif opcion == 3:
+
+            cineController.Listar_Cines_Salas(listaCines)
+
+        elif opcion == 4:
+
+            nombre_Cine: str = input("Nombre del cine al que le eliminaras una sala\n"
+                                     "nombre: ")
+            listaCines = cineController.modificar_Cine(listaCines, nombre_Cine, 4)
+
 
 def menuGestionarPelis():
 
@@ -68,6 +101,61 @@ def menuGestionarPelis():
             nombreCa: str = input("Tu respuesta: ")
             listaCategoria.update_Categoria(nombreCa, 4)
             print("Se elimino con exito\n")
+
+def menuGestionCine():
+
+    opcion: int = None
+    global listaCines
+
+    while opcion != 7:
+
+        opcion = int(input("¿Qué deseas hacer?\n"
+                           "1. Agregar un Cine\n"
+                           "2. Modificar Cine\n"
+                           "3. Listar Cines\n"
+                           "4. Eliminar Cine\n"
+                           "5. Gestionar Salas\n"
+                           "6. Archihvo XML\n"
+                           "7. Salir\n tu respuesta: "))
+
+        if opcion == 1:
+
+            nombre_Cine:str = input("¿Cuál es el nombre del cine? \n"
+                                    "nombre: ")
+            listaCines = cineController.agregar_Cine(listaCines, nombre_Cine)
+            print("Se agrego el nuevo cine con exito!!!")
+
+        elif opcion == 2:
+
+            nombre_Cine: str = input("Nombre del cine a modificar\n"
+                                     "nombre: ")
+            listaCines = cineController.modificar_Cine(listaCines, nombre_Cine, 1)
+
+        elif opcion == 3:
+
+            cineController.Listar_Cines_Salas(listaCines)
+
+        elif opcion == 4:
+
+            nombre_Cine: str = input("Nombre del cine a eliminar\n"
+                                     "nombre: ")
+            listaCines = cineController.eliminar_Cine(listaCines, nombre_Cine)
+
+        elif opcion == 5:
+
+            menuGesteionarSalas()
+
+        elif opcion == 6:
+
+            print("asegurate de actualizar antes de extraer")
+            print("1. Actualizar XML    2. Extraer data de XML")
+            opcion_XLM = int(input("Tu respuesta: "))
+
+            if opcion_XLM == 1:
+
+                cineController.actualizar_XML(listaCines)
+
+
 
 while salir_App is not True:
 
@@ -242,6 +330,7 @@ while salir_App is not True:
                                   "Este es el menú de administrador ¿Qué deseas hacer ahora? \n"
                                   "1. Gestionar Usuarios \n"
                                   "2. Gestionar Categorias Y Peliculas \n"
+                                  "3. Gestionar Cines y Salas\n"
                                   "10. cerrar sesión")
 
                             opcion_Menu_Admin = int(input("Tu respuesta: "))
@@ -383,6 +472,9 @@ while salir_App is not True:
 
                                         menuGestionarPelis()
 
+                            elif opcion_Menu_Admin == 3:
+
+                                menuGestionCine()
 
                             elif opcion_Menu_Admin == 10:
 

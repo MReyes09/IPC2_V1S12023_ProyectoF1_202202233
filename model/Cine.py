@@ -5,7 +5,7 @@ class Cine:
 
     def __init__(self, nombre:str, salas = None):
         self._nombre = nombre
-        self._salas = salas if salas is not None else ListaSala
+        self._salas = salas if salas is not None else None
 
     def get_nombre(self) -> str:
         return self._nombre
