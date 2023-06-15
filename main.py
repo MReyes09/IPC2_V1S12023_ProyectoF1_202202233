@@ -326,7 +326,7 @@ while salir_App is not True:
 
                         while opcion_Menu_Admin != 10:
 
-                            print("MENU DE ADMINISTRADORO\n"
+                            print("MENU DE ADMINISTRADOR\n"
                                   "Este es el menú de administrador ¿Qué deseas hacer ahora? \n"
                                   "1. Gestionar Usuarios \n"
                                   "2. Gestionar Categorias Y Peliculas \n"

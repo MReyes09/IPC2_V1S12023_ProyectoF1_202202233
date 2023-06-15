@@ -8,7 +8,7 @@ from node.NodoUser import NodoUser
 class ListaUser:
 
     def __init__(self):
-        self.cabeza = None
+        self.cabeza:NodoUser = None
 
     def Listar_Usuarios(self):
         actual: NodoUser = self.cabeza

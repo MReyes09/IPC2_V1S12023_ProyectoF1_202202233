@@ -76,8 +76,15 @@ class ListaCategory:
                     anio: int = int(input("año: "))
                     fecha: str = input("fecha: ")
                     hora: str = input("hora: ")
-                    cargar_Pelicula: Pelicula = Pelicula(titulo, director, anio, fecha, hora)
-                    actual.categoria.get_Peliculas().add_Pelicula(cargar_Pelicula)
+
+                    if actual.categoria.get_Peliculas() is not None:
+                        cargar_Pelicula: Pelicula = Pelicula(titulo, director, anio, fecha, hora)
+                        actual.categoria.get_Peliculas().add_Pelicula(cargar_Pelicula)
+                    else:
+                        lista_Pelicula: ListaPelicula = ListaPelicula()
+                        cargar_Pelicula: Pelicula = Pelicula(titulo, director, anio, fecha, hora)
+                        lista_Pelicula.add_Pelicula(cargar_Pelicula)
+                        actual.categoria.set_Peliculas(lista_Pelicula)
                     break
 
                 elif actual.siguiente == self.cabeza:
